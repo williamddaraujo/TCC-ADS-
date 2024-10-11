@@ -40,6 +40,17 @@ header("Location: formulario.php");
     exit();
 
 }
+session_start();
+    
+if((!isset($_SESSION['matricula']) == true) and (!isset($_SESSION['senha']) == true))
+{
+    unset($_SESSION['matricula']);
+    unset($_SESSION['senha']);
+    header('Location: login.php');
+}
+$logado = $_SESSION['matricula'];
+
+
 
 
 
@@ -198,6 +209,21 @@ header("Location: formulario.php");
       
     });
   </script>
+  <script>
+    var search = document.getElementById('pesquisar');
+
+    search.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") 
+        {
+            searchData();
+        }
+    });
+
+    function searchData()
+    {
+        window.location = 'formulario.php?search='+search.value;
+    }
+</script>
 
 </body>
 </html>
