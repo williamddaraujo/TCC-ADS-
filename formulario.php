@@ -122,7 +122,7 @@ $logado = $_SESSION['matricula'];
             outline: none;
             font-size: 15px;
         }
-        #submit{
+        #submit {
             background-image: linear-gradient(to right,rgb(0, 92, 197), rgb(90, 20, 220));
             width: 100%;
             border: none;
@@ -136,6 +136,53 @@ $logado = $_SESSION['matricula'];
             background-image: linear-gradient(to right,rgb(0, 80, 172), rgb(80, 19, 195));
         }
 
+        #export{
+
+            background-color: #4CAF50;
+            width: 100%;
+            border: none;
+            padding: 15px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 10px; 
+
+        }
+
+        #export:hover{background-color: #00802b;
+        }
+        #visualizar:hover{background-image: linear-gradient(to right,rgb(0, 80, 172), rgb(80, 19, 195));}
+        #visualizar{
+
+            background-image: linear-gradient(to right,rgb(0, 92, 197), rgb(90, 20, 220));
+            width: 92%;
+            border: none;
+            padding: 15px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            text-align: center;
+            
+        }
+
+        #export, #visualizar {
+            display: inline-block;}
+
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        p{font-size:35px;}
+
+        legend{font-size:19px;}
         
     </style>
 </head>
@@ -160,9 +207,9 @@ $logado = $_SESSION['matricula'];
                     <input type="Tel" name="Tel" id="Tel" class="inputUser" required>
                     <label for="Tel" class="labelInput">Telefone</label>
                 </div>
-                <br>
+                
                 <b><p >Notas</p></b>
-                <br>
+                
                 <div class="inputBox">
                     <input type="number" name="Excel" id="Excel" class="inputUser"   step="0.1">
                     <label for="Excel" class="labelInput">Excel</label>
@@ -193,13 +240,19 @@ $logado = $_SESSION['matricula'];
                     <input type="number" name="HTML" id="HTML" class="inputUser"   step="0.1">
                     <label for="HTML" class="labelInput">HTML</label>
                 </div>
+               
+                
+                
                 <br>
+                <input type="submit" name="submit" id="submit"value="Enviar"><br><br>
+                <button type="button" id="export" onclick="window.location.href='export_xlsx.php'">Exportar XLSX</button>            
                 
-                
-                <br><br>
-                <input type="submit" name="submit" id="submit"value="Enviar">
-                <button type="button" id="export" onclick="window.location.href='export_xlsx.php'">Exportar XLSX</button>            </fieldset>
-        </form>
+                <br>
+                <!-- Link para visualizar todos os alunos -->
+
+</fieldset>
+            </form><br>
+            <a href="visualizar_alunos.php" id="visualizar">Ver todos os alunos</a>
     </div>
 
     <script>
@@ -226,4 +279,8 @@ $logado = $_SESSION['matricula'];
 </script>
 
 </body>
+<video autoplay muted loop class="video-background">
+        <source src="img/log.mp4" type="video/mp4">
+        Seu navegador não suporta a tag de vídeo.
+    </video>
 </html>
