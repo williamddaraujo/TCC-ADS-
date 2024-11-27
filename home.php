@@ -48,11 +48,12 @@
             text-decoration: none;
             color: white;
             border: 1px solid  #ffa64d;
+            Font-size:50px;
 
             border-radius: 10px;
-            padding: 10px;
+            padding: 6px;
             display: inline-block;
-            margin: 5px;
+            margin: 1px;
         }
         a:hover {
             background-color: dodgerblue;
@@ -68,10 +69,10 @@
             Seu navegador não suporta a tag de vídeo.
         </video>
     </div>
-    <h1>Portal do Aluno</h1>
+    <h1>Portal do Professor</h1>
     <div class="box">
         <a href="login.php">Login</a>
-        <a href="formulariolog.php">Cadastre-se</a>
+        
     </div>
 </body>
 </html>

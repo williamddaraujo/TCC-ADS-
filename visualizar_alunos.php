@@ -194,26 +194,50 @@ if (isset($_GET['delete'])) {
 // Se o formulário de edição for enviado
 if (isset($_POST['update'])) {
     $id_aluno = $_POST['id_aluno'];
-    $nome = $_POST['Nome'];
-    $turma = $_POST['Turma'];
-    $tel = $_POST['Tel'];
-    $excel = $_POST['Excel'];
-    $word = $_POST['word'];
-    $powerpoint = $_POST['PowerPoint'];
-    $logica = $_POST['Logica'];
-    $games = $_POST['Games'];
-    $html = $_POST['HTML'];
+    $nome = trim($_POST['Nome']);
+    $turma = trim($_POST['Turma']);
+    $tel = trim($_POST['Tel']);
+    $excel = trim($_POST['Excel']);
+    $word = trim($_POST['word']);
+    $powerpoint = trim($_POST['PowerPoint']);
+    $logica = trim($_POST['Logica']);
+    $games = trim($_POST['Games']);
+    $html = trim($_POST['HTML']);
 
+    // Validação: campos obrigatórios
+    if (empty($nome) || empty($turma) || empty($tel)) {
+        echo "<script>alert('Erro: Nome, Turma e Telefone são campos obrigatórios.'); window.history.back();</script>";
+        exit();
+    }
+
+    // Validação: notas devem ser numéricas entre 0 e 10 (se preenchidas)
+    $camposNotas = [
+        'Excel' => $excel,
+        'Word' => $word,
+        'PowerPoint' => $powerpoint,
+        'Logica' => $logica,
+        'Games' => $games,
+        'HTML' => $html,
+    ];
+
+    foreach ($camposNotas as $campo => $valor) {
+        if ($valor !== '' && (!is_numeric($valor) || $valor < 0 || $valor > 10)) {
+            echo "<script>alert('Erro: O campo \"$campo\" deve conter uma nota numérica entre 0 e 10 ou ser deixado vazio.'); window.history.back();</script>";
+            exit();
+        }
+    }
+
+    // Atualiza os dados no banco de dados
     $updateQuery = "UPDATE alunos SET 
         Nome = '$nome', 
         Turma = '$turma', 
         Tel = '$tel', 
-        Excel = '$excel', 
-        word = '$word', 
-        PowerPoint = '$powerpoint', 
-        Logica = '$logica', 
-        Games = '$games', 
-        HTML = '$html' 
+        Excel = " . ($excel !== '' ? "'$excel'" : "NULL") . ", 
+        word = " . ($word !== '' ? "'$word'" : "NULL") . ", 
+        PowerPoint = " . ($powerpoint !== '' ? "'$powerpoint'" : "NULL") . ", 
+        Logica = " . ($logica !== '' ? "'$logica'" : "NULL") . ", 
+        Games = " . ($games !== '' ? "'$games'" : "NULL") . ", 
+        HTML = " . ($html !== '' ? "'$html'" : "NULL") . " 
         WHERE id_alunos = '$id_aluno'";
 
     if ($conexao->query($updateQuery) === TRUE) {
@@ -235,6 +259,7 @@ if (isset($_GET['edit'])) {
     $aluno = $resultEdit->fetch_assoc();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -330,36 +355,38 @@ if (isset($_GET['edit'])) {
     <?php if (isset($_GET['edit'])): ?>
         <h3>Editar Notas</h3>
         <form method="POST" action="visualizar_alunos.php">
-            <input type="hidden" name="id_aluno" value="<?= $aluno['id_alunos']; ?>">
-            <label for="Nome">Nome:</label>
-            <input type="text" name="Nome" value="<?= $aluno['Nome']; ?>" required><br>
+    <input type="hidden" name="id_aluno" value="<?= $aluno['id_alunos']; ?>">
 
-            <label for="Turma">Turma:</label>
-            <input type="text" name="Turma" value="<?= $aluno['Turma']; ?>" required><br>
+    <label for="Nome">Nome:</label>
+    <input type="text" name="Nome" value="<?= $aluno['Nome']; ?>" required><br>
 
-            <label for="Tel">Telefone:</label>
-            <input type="text" name="Tel" value="<?= $aluno['Tel']; ?>" required><br>
+    <label for="Turma">Turma:</label>
+    <input type="text" name="Turma" value="<?= $aluno['Turma']; ?>" required><br>
 
-            <label for="Excel">Excel:</label>
-            <input type="text" name="Excel" value="<?= $aluno['Excel']; ?>"><br>
+    <label for="Tel">Telefone:</label>
+    <input type="text" name="Tel" value="<?= $aluno['Tel']; ?>" required><br>
 
-            <label for="word">Word:</label>
-            <input type="text" name="word" value="<?= $aluno['word']; ?>"><br>
+    <label for="Excel">Excel:</label>
+    <input type="number" name="Excel" value="<?= $aluno['Excel']; ?>" min="0" max="10" ><br>
 
-            <label for="PowerPoint">PowerPoint:</label>
-            <input type="text" name="PowerPoint" value="<?= $aluno['PowerPoint']; ?>"><br>
+    <label for="word">Word:</label>
+    <input type="number" name="word" value="<?= $aluno['word']; ?>" min="0" max="10" ><br>
 
-            <label for="Logica">Lógica:</label>
-            <input type="text" name="Logica" value="<?= $aluno['Logica']; ?>"><br>
+    <label for="PowerPoint">PowerPoint:</label>
+    <input type="number" name="PowerPoint" value="<?= $aluno['PowerPoint']; ?>" min="0" max="10" ><br>
 
-            <label for="Games">Games:</label>
-            <input type="text" name="Games" value="<?= $aluno['Games']; ?>"><br>
+    <label for="Logica">Lógica:</label>
+    <input type="number" name="Logica" value="<?= $aluno['Logica']; ?>" min="0" max="10" ><br>
 
-            <label for="HTML">HTML:</label>
-            <input type="text" name="HTML" value="<?= $aluno['HTML']; ?>"><br><br>
+    <label for="Games">Games:</label>
+    <input type="number" name="Games" value="<?= $aluno['Games']; ?>" min="0" max="10" ><br>
 
-            <button type="submit" name="update">Atualizar</button>
-        </form>
+    <label for="HTML">HTML:</label>
+    <input type="number" name="HTML" value="<?= $aluno['HTML']; ?>" min="0" max="10" ><br><br>
+
+    <button type="submit" name="update">Atualizar</button>
+</form>
+
     <?php endif; ?>
 </body>
 <video autoplay muted loop class="video-background">
