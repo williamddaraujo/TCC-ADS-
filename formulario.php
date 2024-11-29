@@ -211,34 +211,34 @@ $logado = $_SESSION['matricula'];
                 <b><p >Notas</p></b>
                 
                 <div class="inputBox">
-                    <input type="number" name="Excel" id="Excel" class="inputUser"   step="0.1">
-                    <label for="Excel" class="labelInput">Excel</label>
+                    <input type="number" name="Excel" id="Excel" class="inputUser"   step="0.1" max="10">
+                    <label for="Excel" >Excel</label>
                 </div>
                 <br>
                 <div class="inputBox">
-                    <input type="number" name="Word" id="Word" class="inputUser"   step="0.1">
-                    <label for="Word" class="labelInput">Word</label>
+                    <input type="number" name="Word" id="Word" class="inputUser" max="10"  step="0.1">
+                    <label for="Word" >Word</label>
                 </div>
                 <br>
                 <div class="inputBox">
-                    <input type="number" name="PowerPoint" id="PowerPoint" class="inputUser"   step="0.1">
-                    <label for="PowerPoint" class="labelInput">PowerPoint</label>
+                    <input type="number" name="PowerPoint" id="PowerPoint" class="inputUser"  max="10" step="0.1">
+                    <label for="PowerPoint" c>PowerPoint</label>
                 </div>
                 
                 <br>
                 <div class="inputBox">
-                    <input type="number" name="Logica" id="Logica" class="inputUser"   step="0.1">
-                    <label for="Logica" class="labelInput">Logica</label>
+                    <input type="number" name="Logica" id="Logica" class="inputUser" max="10"  step="0.1">
+                    <label for="Logica" >Logica</label>
                 </div>
                 <br>
                 <div class="inputBox">
-                    <input type="number" name="Games" id="Games" class="inputUser"   step="0.1">
-                    <label for="Games" class="labelInput">Games</label>
+                    <input type="number" name="Games" id="Games" class="inputUser" max="10"  step="0.1">
+                    <label for="Games" >Games</label>
                 </div>
                 <br>
                 <div class="inputBox">
-                    <input type="number" name="HTML" id="HTML" class="inputUser"   step="0.1">
-                    <label for="HTML" class="labelInput">HTML</label>
+                    <input type="number" name="HTML" id="HTML" class="inputUser" max="10"  step="0.1">
+                    <label for="HTML" >HTML</label>
                 </div>
                
                 
